@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.todolistapp.R;
+import com.example.todolistapp.db.EventDataHelper;
 import com.example.todolistapp.model.EventModel;
 import com.example.todolistapp.recyclerview.CategoryAdapter;
 import com.example.todolistapp.recyclerview.CommonRecyclerAdapter;
@@ -32,18 +33,21 @@ public class SummaryFragment extends Fragment {
     private RecyclerView recyclerView;
     private CategoryAdapter adapter;
 
-    private List<EventModel> list = new ArrayList<>();
+    private List<EventModel> list;
 
     private OnActionListener listener;
 
     private static final String TAG = "SummaryFragment";
 
+    public static final String SUMMARY_EVENT_LIST = "SUMMARY_EVENT_LIST";
+
     public interface OnActionListener{
         void onActionCallback(EventModel EventModel);
     }
 
-    public static SummaryFragment newInstance() {
+    public static SummaryFragment newInstance(ArrayList<EventModel> events) {
         Bundle args = new Bundle();
+        args.putSerializable(SUMMARY_EVENT_LIST, events);
         SummaryFragment fragment = new SummaryFragment();
         fragment.setArguments(args);
         return fragment;
@@ -57,6 +61,7 @@ public class SummaryFragment extends Fragment {
 
         context = getActivity();
         view = inflater.inflate(R.layout.fragment_summary_layout, container, false);
+        list = (List<EventModel>) getArguments().getSerializable(SUMMARY_EVENT_LIST);
         initView();
         return view;
     }
@@ -91,6 +96,8 @@ public class SummaryFragment extends Fragment {
 
                     list.add(eventModel);
                     adapter.notifyDataSetChanged();
+
+                    EventDataHelper.getInstance().insert(eventModel);
                 }
             }
         });

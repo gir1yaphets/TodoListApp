@@ -4,7 +4,10 @@ import android.os.Bundle;
 
 import com.example.todolistapp.R;
 import com.example.todolistapp.application.TodoListApplication;
+import com.example.todolistapp.db.EventDataHelper;
 import com.example.todolistapp.model.EventModel;
+
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -22,7 +25,8 @@ public class MainActivity extends AppCompatActivity implements SummaryFragment.O
 
         isTablet = TodoListApplication.isTablet(this);
 
-        changeFragment(SummaryFragment.newInstance(), R.id.flContainer);
+        ArrayList<EventModel> events = EventDataHelper.getInstance().queryAll();
+        changeFragment(SummaryFragment.newInstance(events), R.id.flContainer);
 
         if (isTablet) {
             changeFragment(DetailFragment.newInstance(null), R.id.flContainerDetail);
