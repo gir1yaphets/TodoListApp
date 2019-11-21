@@ -1,7 +1,6 @@
 package com.example.todolistapp.ui;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -111,36 +109,5 @@ public class SummaryFragment extends Fragment {
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
-    }
-
-    private void showInputDialog() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View dialogView = inflater.inflate(R.layout.layout_input_dialog, null);
-        alertDialogBuilder.setView(dialogView);
-
-        final EditText userInput = dialogView.findViewById(R.id.etInput);
-
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                EventModel eventModel = new EventModel();
-                                eventModel.setSummaryTitle(userInput.getText().toString());
-                                list.add(eventModel);
-                                adapter.notifyDataSetChanged();
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
     }
 }
