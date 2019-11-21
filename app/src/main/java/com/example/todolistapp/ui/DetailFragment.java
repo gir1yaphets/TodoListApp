@@ -35,8 +35,10 @@ public class DetailFragment extends Fragment {
     }
 
     private void initView(Bundle args) {
-        tvDetailContent = view.findViewById(R.id.tvDetailContent);
-        EventModel eventModel = (EventModel) args.getSerializable(DETAIL_EVENT_MODEL);
-        tvDetailContent.setText(eventModel.getDetailContent());
+        if (args != null) {
+            tvDetailContent = view.findViewById(R.id.tvDetailContent);
+            EventModel eventModel = (EventModel) args.getSerializable(DETAIL_EVENT_MODEL);
+            tvDetailContent.setText(eventModel.getDetailContent());
+        }
     }
 }
