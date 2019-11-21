@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:test="http://schemas.android.com/tools">
+              xmlns:test="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCategoryCard"
@@ -11,18 +11,43 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:minHeight="60dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="20dp"
+        app:cardPreventCornerOverlap="true">
 
-        <TextView
-            android:id="@+id/tvCategoryName"
-            android:gravity="center_vertical"
-            android:textSize="20sp"
+        <RelativeLayout
+            android:id="@+id/rlContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:minHeight="60dp"
-            test:text="Work"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvCategoryName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center_vertical"
+                android:minHeight="60dp"
+                android:textSize="20sp"
+                test:text="Work"/>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/ivDelete"
+                android:layout_marginEnd="12dp"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doing"/>
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:src="@drawable/delete"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 

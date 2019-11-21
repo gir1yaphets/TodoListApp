@@ -28,7 +28,7 @@ public class SummaryFragment extends Fragment {
     private Context context;
 
     private View view;
-    private ImageView imageView;
+    private ImageView ivAdd;
     private EditText etSummary;
     private EditText etDetail;
     private RecyclerView recyclerView;
@@ -76,12 +76,15 @@ public class SummaryFragment extends Fragment {
         etSummary = view.findViewById(R.id.etSummary);
         etDetail = view.findViewById(R.id.etDetailContent);
 
-        imageView = view.findViewById(R.id.ivAdd);
-        imageView.setOnClickListener(new View.OnClickListener() {
+        ivAdd = view.findViewById(R.id.ivAdd);
+        ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String summary = etSummary.getText().toString();
                 String detail = etDetail.getText().toString();
+
+                etSummary.setText("");
+                etDetail.setText("");
 
                 if (!summary.isEmpty() && !detail.isEmpty()) {
                     EventModel eventModel = new EventModel();

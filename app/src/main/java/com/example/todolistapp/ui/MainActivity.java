@@ -8,6 +8,8 @@ import com.example.todolistapp.model.EventModel;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import static com.example.todolistapp.ui.DetailFragment.DETAIL_EVENT_MODEL;
+
 public class MainActivity extends AppCompatActivity implements SummaryFragment.OnActionListener {
 
     @Override
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements SummaryFragment.O
 
     @Override
     public void onActionCallback(EventModel eventModel) {
-        changeFragment(DetailFragment.newInstance());
+        Bundle args = new Bundle();
+        args.putSerializable(DETAIL_EVENT_MODEL, eventModel);
+        changeFragment(DetailFragment.newInstance(args));
     }
 }
