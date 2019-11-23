@@ -10,6 +10,7 @@ import com.example.todolistapp.model.EventModel;
 import java.util.ArrayList;
 
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_DETAIL;
+import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_ID;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_STATUS;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_SUMMARY;
 
@@ -38,6 +39,7 @@ public class EventDataHelper {
 
     public void insert(EventModel eventModel) {
         ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_ID, eventModel.getId());
         contentValues.put(COLUMN_SUMMARY, eventModel.getSummaryTitle());
         contentValues.put(COLUMN_DETAIL, eventModel.getDetailContent());
         contentValues.put(COLUMN_STATUS, eventModel.getStatus());
@@ -51,6 +53,7 @@ public class EventDataHelper {
 
     public void update(EventModel eventModel) {
         ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_ID, eventModel.getId());
         contentValues.put(COLUMN_SUMMARY, eventModel.getSummaryTitle());
         contentValues.put(COLUMN_DETAIL, eventModel.getDetailContent());
         contentValues.put(COLUMN_STATUS, eventModel.getStatus());
