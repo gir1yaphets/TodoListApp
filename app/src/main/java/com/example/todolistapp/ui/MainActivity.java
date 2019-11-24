@@ -4,15 +4,19 @@ import android.os.Bundle;
 
 import com.example.todolistapp.R;
 import com.example.todolistapp.application.TodoListApplication;
+<<<<<<< HEAD
 import com.example.todolistapp.db.EventDataHelper;
 import com.example.todolistapp.model.EventModel;
+=======
+import com.example.todolistapp.model.CategoryModel;
+>>>>>>> feature/Exercise_5
 
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import static com.example.todolistapp.ui.DetailFragment.DETAIL_EVENT_MODEL;
+import static com.example.todolistapp.ui.DetailFragment.CATEGORY_MODEL;
 
 public class MainActivity extends AppCompatActivity implements SummaryFragment.OnActionListener {
 
@@ -42,9 +46,9 @@ public class MainActivity extends AppCompatActivity implements SummaryFragment.O
     }
 
     @Override
-    public void onActionCallback(EventModel eventModel) {
+    public void onActionCallback(CategoryModel categoryModel) {
         Bundle args = new Bundle();
-        args.putSerializable(DETAIL_EVENT_MODEL, eventModel);
+        args.putSerializable(CATEGORY_MODEL, categoryModel);
 
         int layoutId;
 

@@ -9,6 +9,8 @@ public class EventModel implements Serializable {
 
     private String detailContent;
 
+    private String eventContent;
+
     public static final String STATUS_TO_DO = "To do";
     public static final String STATUS_DOING = "Doing";
     public static final String STATUS_DONE = "Done";
@@ -43,13 +45,12 @@ public class EventModel implements Serializable {
         this.summaryTitle = summaryTitle;
     }
 
-    public String getDetailContent() {
-        return detailContent;
+    public void setEventlContent(String eventContent) {
+        this.eventContent = eventContent;
     }
 
-    public void setDetailContent(String detailContent) {
-        this.detailContent = detailContent;
+    public String getEventContent() {
+        return eventContent;
     }
-
 
 }
