@@ -9,12 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.todolistapp.R;
-<<<<<<< HEAD
 import com.example.todolistapp.db.EventDataHelper;
-import com.example.todolistapp.model.EventModel;
-=======
 import com.example.todolistapp.model.CategoryModel;
->>>>>>> feature/Exercise_5
 import com.example.todolistapp.recyclerview.CategoryAdapter;
 import com.example.todolistapp.recyclerview.CommonRecyclerAdapter;
 
@@ -36,11 +32,8 @@ public class SummaryFragment extends Fragment {
     private RecyclerView recyclerView;
     private CategoryAdapter adapter;
 
-<<<<<<< HEAD
-    private List<EventModel> list;
-=======
     private List<CategoryModel> list = new ArrayList<>();
->>>>>>> feature/Exercise_5
+    private int categoryId = 0;
 
     private OnActionListener listener;
 
@@ -52,9 +45,9 @@ public class SummaryFragment extends Fragment {
         void onActionCallback(CategoryModel categoryModel);
     }
 
-    public static SummaryFragment newInstance(ArrayList<EventModel> events) {
+    public static SummaryFragment newInstance(ArrayList<CategoryModel> categories) {
         Bundle args = new Bundle();
-        args.putSerializable(SUMMARY_EVENT_LIST, events);
+        args.putSerializable(SUMMARY_EVENT_LIST, categories);
         SummaryFragment fragment = new SummaryFragment();
         fragment.setArguments(args);
         return fragment;
@@ -68,7 +61,7 @@ public class SummaryFragment extends Fragment {
 
         context = getActivity();
         view = inflater.inflate(R.layout.fragment_summary_layout, container, false);
-        list = (List<EventModel>) getArguments().getSerializable(SUMMARY_EVENT_LIST);
+        list = (List<CategoryModel>) getArguments().getSerializable(SUMMARY_EVENT_LIST);
         initView();
         return view;
     }
@@ -95,12 +88,13 @@ public class SummaryFragment extends Fragment {
 
                 if (!summary.isEmpty()) {
                     CategoryModel categoryModel = new CategoryModel();
+                    categoryModel.setId(categoryId++);
                     categoryModel.setCategory(summary);
 
                     list.add(categoryModel);
                     adapter.notifyDataSetChanged();
 
-                    EventDataHelper.getInstance().insert(eventModel);
+                    EventDataHelper.getInstance().insert(categoryModel);
                 }
             }
         });

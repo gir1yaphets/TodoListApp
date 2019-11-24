@@ -6,20 +6,34 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TodoDatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_EVENT = "event";
+    public static final String TABLE_CATEGORY = "category";
     public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_SUMMARY = "summary";
-    public static final String COLUMN_DETAIL = "detail";
+    public static final String COLUMN_CATEGORY_ID = "category_id";
+
+    public static final String COLUMN_EVENT_ID = "event_id";
+    public static final String COLUMN_EVENT_CATEGORY_ID = "event_category_id";
+    public static final String COLUMN_CATEGORY = "category";
+    public static final String COLUMN_EVENT_NAME = "event_name";
     public static final String COLUMN_STATUS = "status";
 
     private static final String DATABASE_NAME = "todolist.db";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String DATABASE_CREATE = "create table "
+    private static final String DATABASE_CREATE_CATEGORY_TABLE = "create table if not exists "
+            + TABLE_CATEGORY + "( " + COLUMN_ID
+            + " integer primary key autoincrement, "
+            + COLUMN_CATEGORY_ID + " text,"
+            + COLUMN_CATEGORY + " text"
+            + ");";
+
+    private static final String DATABASE_CREATE_EVENT_TABLE = "create table if not exists "
             + TABLE_EVENT + "( " + COLUMN_ID
             + " integer primary key autoincrement, "
-            + COLUMN_SUMMARY + " text,"
-            + COLUMN_DETAIL + " text,"
-            + COLUMN_STATUS + " text"
+            + COLUMN_EVENT_ID + " text,"
+            + COLUMN_EVENT_CATEGORY_ID + " text,"
+            + COLUMN_EVENT_NAME + " text,"
+            + COLUMN_STATUS + " text,"
+            + "FOREIGN KEY ("+COLUMN_EVENT_CATEGORY_ID+") REFERENCES "+ COLUMN_CATEGORY_ID
             + ");";
 
     public TodoDatabaseHelper(Context context) {
@@ -28,11 +42,13 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(DATABASE_CREATE);
+        sqLiteDatabase.execSQL(DATABASE_CREATE_CATEGORY_TABLE);
+        sqLiteDatabase.execSQL(DATABASE_CREATE_EVENT_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORY);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT);
         onCreate(sqLiteDatabase);
     }
