@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.todolistapp.R;
 import com.example.todolistapp.model.CategoryModel;
@@ -31,6 +32,8 @@ public class DetailFragment extends Fragment {
 
     private CategoryModel categoryModel;
 
+    private TextView tvCategory;
+
     public static final String CATEGORY_MODEL = "CATEGORY_MODEL";
 
     public static DetailFragment newInstance(Bundle args) {
@@ -53,36 +56,39 @@ public class DetailFragment extends Fragment {
     private void initView(Bundle args) {
         if (args != null) {
             categoryModel = (CategoryModel) args.getSerializable(CATEGORY_MODEL);
-        } else {
-            categoryModel = new CategoryModel();
-        }
 
-        etDetail = view.findViewById(R.id.etDetailContent);
+            tvCategory = view.findViewById(R.id.tvCategoryTitle);
+            tvCategory.setText(categoryModel.getCategory());
 
-        ivAdd = view.findViewById(R.id.ivAdd);
-        ivAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String detail = etDetail.getText().toString();
+            etDetail = view.findViewById(R.id.etDetailContent);
 
-                etDetail.setText("");
+            ivAdd = view.findViewById(R.id.ivAdd);
+            ivAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String detail = etDetail.getText().toString();
 
-                if (!detail.isEmpty() && categoryModel != null) {
-                    EventModel eventModel = new EventModel();
-                    eventModel.setEventlContent(detail);
+                    etDetail.setText("");
 
-                    categoryModel.getEventList().add(eventModel);
+                    if (!detail.isEmpty() && categoryModel != null) {
+                        EventModel eventModel = new EventModel();
+                        eventModel.setEventlContent(detail);
 
-                    adapter.notifyDataSetChanged();
+                        categoryModel.getEventList().add(eventModel);
+
+                        adapter.notifyDataSetChanged();
+                    }
                 }
-            }
-        });
+            });
 
-        recyclerView = view.findViewById(R.id.rvDetail);
+            recyclerView = view.findViewById(R.id.rvDetail);
 
-        adapter = new DetailAdapter(context, categoryModel.getEventList());
-        adapter.setMultipleViewType(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(adapter);
+            adapter = new DetailAdapter(context, categoryModel.getEventList());
+            adapter.setMultipleViewType(false);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(adapter);
+        } else {
+            view.setVisibility(View.INVISIBLE);
+        }
     }
 }
