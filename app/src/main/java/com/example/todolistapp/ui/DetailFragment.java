@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.todolistapp.R;
+import com.example.todolistapp.db.EventDataHelper;
 import com.example.todolistapp.model.CategoryModel;
 import com.example.todolistapp.model.EventModel;
 import com.example.todolistapp.recyclerview.DetailAdapter;
@@ -33,6 +34,8 @@ public class DetailFragment extends Fragment {
     private CategoryModel categoryModel;
 
     private TextView tvCategory;
+
+    private int eventId = 0;
 
     public static final String CATEGORY_MODEL = "CATEGORY_MODEL";
 
@@ -72,9 +75,12 @@ public class DetailFragment extends Fragment {
 
                     if (!detail.isEmpty() && categoryModel != null) {
                         EventModel eventModel = new EventModel();
-                        eventModel.setEventlContent(detail);
-
+                        eventModel.setId(eventId++);
+                        eventModel.setEventContent(detail);
+                        eventModel.setCategoryId(categoryModel.getId());
                         categoryModel.getEventList().add(eventModel);
+
+                        EventDataHelper.getInstance().insertEvent(eventModel);
 
                         adapter.notifyDataSetChanged();
                     }

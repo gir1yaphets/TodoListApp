@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.todolistapp.R;
+import com.example.todolistapp.db.EventDataHelper;
 import com.example.todolistapp.model.EventModel;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
@@ -57,6 +58,7 @@ public class DetailAdapter extends CommonRecyclerAdapter<EventModel> {
             @Override
             public void onClick(View view) {
                 mData.remove(data);
+                EventDataHelper.getInstance().deleteEvent(data);
                 notifyDataSetChanged();
             }
         });
@@ -76,6 +78,7 @@ public class DetailAdapter extends CommonRecyclerAdapter<EventModel> {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         data.setStatus(items[which]);
+                        EventDataHelper.getInstance().updateEvent(data);
                         notifyDataSetChanged();
                         dialog.dismiss();
                     }

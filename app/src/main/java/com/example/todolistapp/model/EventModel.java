@@ -3,11 +3,7 @@ package com.example.todolistapp.model;
 import java.io.Serializable;
 
 public class EventModel implements Serializable {
-    private int id = 1;
-
-    private String summaryTitle;
-
-    private String detailContent;
+    private int id;
 
     private String eventContent;
 
@@ -17,9 +13,15 @@ public class EventModel implements Serializable {
 
     private String status = STATUS_TO_DO;
 
-    public EventModel() {
-        id += 1;
+    public int getCategoryId() {
+        return categoryId;
     }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    private int categoryId;
 
     public int getId() {
         return id;
@@ -37,15 +39,7 @@ public class EventModel implements Serializable {
         this.status = status;
     }
 
-    public String getSummaryTitle() {
-        return summaryTitle;
-    }
-
-    public void setSummaryTitle(String summaryTitle) {
-        this.summaryTitle = summaryTitle;
-    }
-
-    public void setEventlContent(String eventContent) {
+    public void setEventContent(String eventContent) {
         this.eventContent = eventContent;
     }
 
