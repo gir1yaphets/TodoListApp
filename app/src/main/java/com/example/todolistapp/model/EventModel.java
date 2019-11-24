@@ -3,9 +3,7 @@ package com.example.todolistapp.model;
 import java.io.Serializable;
 
 public class EventModel implements Serializable {
-    private String summaryTitle;
-
-    private String detailContent;
+    private String eventContent;
 
     public static final String STATUS_TO_DO = "To do";
     public static final String STATUS_DOING = "Doing";
@@ -22,22 +20,12 @@ public class EventModel implements Serializable {
     }
 
 
-
-    public String getSummaryTitle() {
-        return summaryTitle;
+    public void setEventlContent(String eventContent) {
+        this.eventContent = eventContent;
     }
 
-    public void setSummaryTitle(String summaryTitle) {
-        this.summaryTitle = summaryTitle;
+    public String getEventContent() {
+        return eventContent;
     }
-
-    public String getDetailContent() {
-        return detailContent;
-    }
-
-    public void setDetailContent(String detailContent) {
-        this.detailContent = detailContent;
-    }
-
 
 }

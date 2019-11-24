@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.todolistapp.R;
-import com.example.todolistapp.model.EventModel;
+import com.example.todolistapp.model.CategoryModel;
 import com.example.todolistapp.recyclerview.CategoryAdapter;
 import com.example.todolistapp.recyclerview.CommonRecyclerAdapter;
 
@@ -28,18 +28,17 @@ public class SummaryFragment extends Fragment {
     private View view;
     private ImageView ivAdd;
     private EditText etSummary;
-    private EditText etDetail;
     private RecyclerView recyclerView;
     private CategoryAdapter adapter;
 
-    private List<EventModel> list = new ArrayList<>();
+    private List<CategoryModel> list = new ArrayList<>();
 
     private OnActionListener listener;
 
     private static final String TAG = "SummaryFragment";
 
     public interface OnActionListener{
-        void onActionCallback(EventModel EventModel);
+        void onActionCallback(CategoryModel categoryModel);
     }
 
     public static SummaryFragment newInstance() {
@@ -72,24 +71,20 @@ public class SummaryFragment extends Fragment {
 
     private void initView() {
         etSummary = view.findViewById(R.id.etSummary);
-        etDetail = view.findViewById(R.id.etDetailContent);
 
         ivAdd = view.findViewById(R.id.ivAdd);
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String summary = etSummary.getText().toString();
-                String detail = etDetail.getText().toString();
 
                 etSummary.setText("");
-                etDetail.setText("");
 
-                if (!summary.isEmpty() && !detail.isEmpty()) {
-                    EventModel eventModel = new EventModel();
-                    eventModel.setSummaryTitle(summary);
-                    eventModel.setDetailContent(detail);
+                if (!summary.isEmpty()) {
+                    CategoryModel categoryModel = new CategoryModel();
+                    categoryModel.setCategory(summary);
 
-                    list.add(eventModel);
+                    list.add(categoryModel);
                     adapter.notifyDataSetChanged();
                 }
             }
