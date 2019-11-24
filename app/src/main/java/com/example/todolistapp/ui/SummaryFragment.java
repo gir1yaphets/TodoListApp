@@ -9,8 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.todolistapp.R;
+<<<<<<< HEAD
 import com.example.todolistapp.db.EventDataHelper;
 import com.example.todolistapp.model.EventModel;
+=======
+import com.example.todolistapp.model.CategoryModel;
+>>>>>>> feature/Exercise_5
 import com.example.todolistapp.recyclerview.CategoryAdapter;
 import com.example.todolistapp.recyclerview.CommonRecyclerAdapter;
 
@@ -29,11 +33,14 @@ public class SummaryFragment extends Fragment {
     private View view;
     private ImageView ivAdd;
     private EditText etSummary;
-    private EditText etDetail;
     private RecyclerView recyclerView;
     private CategoryAdapter adapter;
 
+<<<<<<< HEAD
     private List<EventModel> list;
+=======
+    private List<CategoryModel> list = new ArrayList<>();
+>>>>>>> feature/Exercise_5
 
     private OnActionListener listener;
 
@@ -42,7 +49,7 @@ public class SummaryFragment extends Fragment {
     public static final String SUMMARY_EVENT_LIST = "SUMMARY_EVENT_LIST";
 
     public interface OnActionListener{
-        void onActionCallback(EventModel EventModel);
+        void onActionCallback(CategoryModel categoryModel);
     }
 
     public static SummaryFragment newInstance(ArrayList<EventModel> events) {
@@ -77,24 +84,20 @@ public class SummaryFragment extends Fragment {
 
     private void initView() {
         etSummary = view.findViewById(R.id.etSummary);
-        etDetail = view.findViewById(R.id.etDetailContent);
 
         ivAdd = view.findViewById(R.id.ivAdd);
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String summary = etSummary.getText().toString();
-                String detail = etDetail.getText().toString();
 
                 etSummary.setText("");
-                etDetail.setText("");
 
-                if (!summary.isEmpty() && !detail.isEmpty()) {
-                    EventModel eventModel = new EventModel();
-                    eventModel.setSummaryTitle(summary);
-                    eventModel.setDetailContent(detail);
+                if (!summary.isEmpty()) {
+                    CategoryModel categoryModel = new CategoryModel();
+                    categoryModel.setCategory(summary);
 
-                    list.add(eventModel);
+                    list.add(categoryModel);
                     adapter.notifyDataSetChanged();
 
                     EventDataHelper.getInstance().insert(eventModel);

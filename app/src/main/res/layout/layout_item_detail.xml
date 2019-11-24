@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:test="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:test="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCategoryCard"
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvCategoryName"
+                android:id="@+id/tvDetailName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -28,6 +28,16 @@
                 android:minHeight="60dp"
                 android:textSize="20sp"
                 test:text="Work"/>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/ivDelete"
+                android:layout_marginEnd="12dp"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doing"/>
 
             <ImageView
                 android:id="@+id/ivDelete"

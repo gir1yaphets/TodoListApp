@@ -39,7 +39,7 @@ public class EventDataHelper {
     public void insert(EventModel eventModel) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_SUMMARY, eventModel.getSummaryTitle());
-        contentValues.put(COLUMN_DETAIL, eventModel.getDetailContent());
+//        contentValues.put(COLUMN_DETAIL, eventModel.getDetailContent());
         contentValues.put(COLUMN_STATUS, eventModel.getStatus());
 
         database.insert(TodoDatabaseHelper.TABLE_EVENT, null, contentValues);
@@ -52,7 +52,7 @@ public class EventDataHelper {
     public void update(EventModel eventModel) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_SUMMARY, eventModel.getSummaryTitle());
-        contentValues.put(COLUMN_DETAIL, eventModel.getDetailContent());
+//        contentValues.put(COLUMN_DETAIL, eventModel.getDetailContent());
         contentValues.put(COLUMN_STATUS, eventModel.getStatus());
         database.update(TodoDatabaseHelper.TABLE_EVENT, contentValues, TodoDatabaseHelper.COLUMN_ID + " = " + eventModel.getId(), null);
     }
@@ -68,7 +68,7 @@ public class EventDataHelper {
 
             EventModel eventModel = new EventModel();
             eventModel.setSummaryTitle(summary);
-            eventModel.setDetailContent(detail);
+//            eventModel.setDetailContent(detail);
             eventModel.setStatus(status);
 
             list.add(eventModel);
