@@ -1,6 +1,7 @@
 package com.example.todolistapp.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.todolistapp.R;
 import com.example.todolistapp.application.TodoListApplication;
@@ -18,10 +19,14 @@ public class MainActivity extends AppCompatActivity implements SummaryFragment.O
 
     private boolean isTablet;
 
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d(TAG, "onCreate: ");
 
         isTablet = TodoListApplication.isTablet(this);
 

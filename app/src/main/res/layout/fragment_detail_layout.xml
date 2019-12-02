@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rlTitleLayout"
@@ -15,21 +15,21 @@
             android:id="@+id/tvCategoryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textStyle="bold|italic"
-            android:textColor="@color/Teal"
             android:gravity="center"
             android:minHeight="50dp"
-            android:text="Input your Event"/>
+            android:text="Input your Event"
+            android:textColor="@color/Teal"
+            android:textSize="30sp"
+            android:textStyle="bold|italic" />
 
         <ImageView
             android:id="@+id/ivAdd"
-            android:src="@drawable/add"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:layout_width="32dp"
-            android:layout_height="32dp"/>
+            android:src="@drawable/add" />
 
     </RelativeLayout>
 
@@ -39,62 +39,81 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:minHeight="60dp"
-        app:cardPreventCornerOverlap="true"
         app:cardBackgroundColor="@color/LavenderBlush"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        app:cardPreventCornerOverlap="true">
 
         <EditText
             android:id="@+id/etDetailContent"
-            android:gravity="center_vertical"
-            android:textSize="16sp"
-            android:hint="Input your event detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="Input your event detail"
             android:minHeight="60dp"
-            tools:text="Work"/>
+            android:textSize="16sp"
+            tools:text="Work" />
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/tvDetailTitle"
+    <RelativeLayout
+        android:id="@+id/rlTitleContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textColor="@color/Teal"
-        android:textStyle="bold|italic"
-        android:gravity="center"
-        android:minHeight="50dp"
-        android:text="Detail Event"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvDetailTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:text="Detail Event"
+            android:textColor="@color/Teal"
+            android:textSize="30sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/tvSorting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:textSize="16sp"
+            android:text="sorting"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlSearchContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etSearchContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:textSize="18sp"
+            android:hint="Input events you wang to search"/>
+
+        <TextView
+            android:id="@+id/tvSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:textSize="16sp"
+            android:text="search"/>
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDetail"
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp">
     </androidx.recyclerview.widget.RecyclerView>
-
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/cvDetailCard"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="8dp"-->
-<!--        android:minHeight="60dp"-->
-<!--        app:cardPreventCornerOverlap="true"-->
-<!--        app:cardBackgroundColor="@color/LavenderBlush"-->
-<!--        app:cardCornerRadius="8dp">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tvDetailContent"-->
-<!--            android:gravity="top"-->
-<!--            android:textSize="20sp"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:background="@null"-->
-<!--            android:minHeight="150dp"-->
-<!--            tools:text="Work"/>-->
-
-<!--    </androidx.cardview.widget.CardView>-->
 
 </LinearLayout>

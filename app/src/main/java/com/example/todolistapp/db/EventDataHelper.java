@@ -81,7 +81,8 @@ public class EventDataHelper {
     public void deleteEvent(EventModel eventModel) {
         database.delete(TodoDatabaseHelper.TABLE_EVENT,
                 COLUMN_EVENT_ID + " = ? and " + COLUMN_EVENT_CATEGORY_ID + " = ?"
-                , new String[]{String.valueOf(eventModel.getId()), String.valueOf(eventModel.getCategoryId())});
+                , new String[]{String.valueOf(eventModel.getId()),
+                        String.valueOf(eventModel.getCategoryId())});
     }
 
     public void update(CategoryModel categoryModel) {
@@ -101,7 +102,8 @@ public class EventDataHelper {
 
         database.update(TodoDatabaseHelper.TABLE_EVENT, contentValues,
                 COLUMN_EVENT_ID + " = ? and " + COLUMN_EVENT_CATEGORY_ID + " = ?"
-                        , new String[]{String.valueOf(eventModel.getId()), String.valueOf(eventModel.getCategoryId())});
+                , new String[]{String.valueOf(eventModel.getId()),
+                        String.valueOf(eventModel.getCategoryId())});
     }
 
     public ArrayList<CategoryModel> queryAll() {
@@ -118,6 +120,31 @@ public class EventDataHelper {
             categoryModel.setCategory(categoryName);
 
             list.add(categoryModel);
+        }
+
+        cursor.close();
+
+        return list;
+    }
+
+    public ArrayList<EventModel> queryEvent(String event) {
+        ArrayList<EventModel> list = new ArrayList<>();
+        String querySql = "SELECT * FROM " + TABLE_EVENT + " WHERE " + COLUMN_EVENT_NAME + " like " +
+                "'%" + event + "%'";
+
+        Cursor cursor = database.rawQuery(querySql, null);
+
+        while (cursor.moveToNext()) {
+            String eventId = cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_ID));
+            String eventName = cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_NAME));
+            String status = cursor.getString(cursor.getColumnIndex(COLUMN_STATUS));
+
+            EventModel eventModel = new EventModel();
+            eventModel.setId(Integer.valueOf(eventId));
+            eventModel.setStatus(status);
+            eventModel.setEventContent(eventName);
+
+            list.add(eventModel);
         }
 
         cursor.close();

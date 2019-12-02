@@ -15,6 +15,9 @@ import com.example.todolistapp.model.CategoryModel;
 import com.example.todolistapp.model.EventModel;
 import com.example.todolistapp.recyclerview.DetailAdapter;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -35,6 +38,12 @@ public class DetailFragment extends Fragment {
 
     private TextView tvCategory;
 
+    private TextView tvSorting;
+
+    private EditText etSearchContent;
+
+    private TextView tvSearch;
+
     private int eventId = 0;
 
     public static final String CATEGORY_MODEL = "CATEGORY_MODEL";
@@ -47,7 +56,8 @@ public class DetailFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         context = getActivity();
@@ -64,6 +74,34 @@ public class DetailFragment extends Fragment {
             tvCategory.setText(categoryModel.getCategory());
 
             etDetail = view.findViewById(R.id.etDetailContent);
+
+            tvSorting = view.findViewById(R.id.tvSorting);
+            tvSorting.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Collections.sort(categoryModel.getEventList(), new Comparator<EventModel>() {
+                        @Override
+                        public int compare(EventModel t1, EventModel t2) {
+                            return t1.getEventContent().compareTo(t2.getEventContent());
+                        }
+                    });
+
+                    adapter.setData(categoryModel.getEventList());
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+            etSearchContent = view.findViewById(R.id.etSearchContent);
+            tvSearch = view.findViewById(R.id.tvSearch);
+            tvSearch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String searchContent = etSearchContent.getText().toString();
+                    categoryModel.setEventList(EventDataHelper.getInstance().queryEvent(searchContent));
+                    adapter.setData(categoryModel.getEventList());
+                    adapter.notifyDataSetChanged();
+                }
+            });
 
             ivAdd = view.findViewById(R.id.ivAdd);
             ivAdd.setOnClickListener(new View.OnClickListener() {

@@ -3,6 +3,7 @@ package com.example.todolistapp.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class TodoDatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_EVENT = "event";
@@ -17,7 +18,9 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_STATUS = "status";
 
     private static final String DATABASE_NAME = "todolist.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
+
+    private static final String TAG = "TodoDatabaseHelper";
 
     private static final String DATABASE_CREATE_CATEGORY_TABLE = "create table if not exists "
             + TABLE_CATEGORY + "( " + COLUMN_ID
@@ -42,6 +45,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        Log.d(TAG, "onCreate: ");
         sqLiteDatabase.execSQL(DATABASE_CREATE_CATEGORY_TABLE);
         sqLiteDatabase.execSQL(DATABASE_CREATE_EVENT_TABLE);
     }
