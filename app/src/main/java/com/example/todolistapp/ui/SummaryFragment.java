@@ -33,7 +33,6 @@ public class SummaryFragment extends Fragment {
     private CategoryAdapter adapter;
 
     private List<CategoryModel> list = new ArrayList<>();
-    private int categoryId = 0;
 
     private OnActionListener listener;
 
@@ -88,13 +87,13 @@ public class SummaryFragment extends Fragment {
 
                 if (!summary.isEmpty()) {
                     CategoryModel categoryModel = new CategoryModel();
-                    categoryModel.setId(categoryId++);
                     categoryModel.setCategory(summary);
 
                     list.add(categoryModel);
                     adapter.notifyDataSetChanged();
 
-                    EventDataHelper.getInstance().insert(categoryModel);
+                    int categoryId = EventDataHelper.getInstance().insert(categoryModel);
+                    categoryModel.setId(categoryId);
                 }
             }
         });

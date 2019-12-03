@@ -12,31 +12,29 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CATEGORY_ID = "category_id";
 
     public static final String COLUMN_EVENT_ID = "event_id";
-    public static final String COLUMN_EVENT_CATEGORY_ID = "event_category_id";
+    public static final String COLUMN_EVENT_CATEGORY_NAME = "event_category_name";
     public static final String COLUMN_CATEGORY = "category";
     public static final String COLUMN_EVENT_NAME = "event_name";
     public static final String COLUMN_STATUS = "status";
 
     private static final String DATABASE_NAME = "todolist.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 7;
 
     private static final String TAG = "TodoDatabaseHelper";
 
     private static final String DATABASE_CREATE_CATEGORY_TABLE = "create table if not exists "
             + TABLE_CATEGORY + "( " + COLUMN_ID
             + " integer primary key autoincrement, "
-            + COLUMN_CATEGORY_ID + " text,"
             + COLUMN_CATEGORY + " text"
             + ");";
 
     private static final String DATABASE_CREATE_EVENT_TABLE = "create table if not exists "
             + TABLE_EVENT + "( " + COLUMN_ID
             + " integer primary key autoincrement, "
-            + COLUMN_EVENT_ID + " text,"
-            + COLUMN_EVENT_CATEGORY_ID + " text,"
+            + COLUMN_EVENT_CATEGORY_NAME + " text,"
             + COLUMN_EVENT_NAME + " text,"
             + COLUMN_STATUS + " text,"
-            + "FOREIGN KEY ("+COLUMN_EVENT_CATEGORY_ID+") REFERENCES "+ COLUMN_CATEGORY_ID
+            + "FOREIGN KEY ("+COLUMN_EVENT_CATEGORY_NAME+") REFERENCES "+ COLUMN_CATEGORY
             + ");";
 
     public TodoDatabaseHelper(Context context) {

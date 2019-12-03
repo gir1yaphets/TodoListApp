@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements SummaryFragment.O
         ArrayList<CategoryModel> categories = EventDataHelper.getInstance().queryAll();
 
         for (CategoryModel categoryModel : categories) {
-            categoryModel.setEventList(EventDataHelper.getInstance().queryAllEvents(categoryModel.getId()));
+            categoryModel.setEventList(EventDataHelper.getInstance().queryAllEvents(categoryModel.getCategory()));
         }
 
         changeFragment(SummaryFragment.newInstance(categories), R.id.flContainer);

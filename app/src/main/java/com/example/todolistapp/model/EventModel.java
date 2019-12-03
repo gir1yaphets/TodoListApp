@@ -7,11 +7,21 @@ public class EventModel implements Serializable {
 
     private String eventContent;
 
+    private String categoryName;
+
     public static final String STATUS_TO_DO = "To do";
     public static final String STATUS_DOING = "Doing";
     public static final String STATUS_DONE = "Done";
 
     private String status = STATUS_TO_DO;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public int getCategoryId() {
         return categoryId;

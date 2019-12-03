@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_CATEGORY;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_CATEGORY_ID;
-import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_EVENT_CATEGORY_ID;
+import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_EVENT_CATEGORY_NAME;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_EVENT_ID;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_EVENT_NAME;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_ID;
@@ -42,13 +42,12 @@ public class EventDataHelper {
         return eventDataHelper;
     }
 
-    public void insert(CategoryModel categoryModel) {
+    public int insert(CategoryModel categoryModel) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_CATEGORY_ID, categoryModel.getId());
+//        contentValues.put(COLUMN_CATEGORY_ID, categoryModel.getId());
         contentValues.put(COLUMN_CATEGORY, categoryModel.getCategory());
 
-        database.insert(TodoDatabaseHelper.TABLE_CATEGORY, null, contentValues);
-
+        return (int) database.insert(TodoDatabaseHelper.TABLE_CATEGORY, null, contentValues);
     }
 
     public void insertEvents(CategoryModel categoryModel) {
@@ -56,33 +55,32 @@ public class EventDataHelper {
             ContentValues contentValues = new ContentValues();
             contentValues.put(COLUMN_EVENT_ID, eventModel.getId());
             contentValues.put(COLUMN_EVENT_NAME, eventModel.getEventContent());
-            contentValues.put(COLUMN_EVENT_CATEGORY_ID, categoryModel.getId());
+            contentValues.put(COLUMN_EVENT_CATEGORY_NAME, categoryModel.getCategory());
             contentValues.put(COLUMN_STATUS, eventModel.getStatus());
 
             database.insert(TABLE_EVENT, null, contentValues);
         }
     }
 
-    public void insertEvent(EventModel eventModel) {
+    public int insertEvent(EventModel eventModel) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_EVENT_ID, eventModel.getId());
         contentValues.put(COLUMN_EVENT_NAME, eventModel.getEventContent());
-        contentValues.put(COLUMN_EVENT_CATEGORY_ID, eventModel.getCategoryId());
+        contentValues.put(COLUMN_EVENT_CATEGORY_NAME, eventModel.getCategoryName());
         contentValues.put(COLUMN_STATUS, eventModel.getStatus());
 
-        database.insert(TABLE_EVENT, null, contentValues);
+        return (int) database.insert(TABLE_EVENT, null, contentValues);
     }
 
     public void delete(CategoryModel categoryModel) {
         database.delete(TodoDatabaseHelper.TABLE_CATEGORY,
-                COLUMN_CATEGORY_ID + " = " + categoryModel.getId(), null);
+                COLUMN_ID + " = " + categoryModel.getId(), null);
     }
 
     public void deleteEvent(EventModel eventModel) {
         database.delete(TodoDatabaseHelper.TABLE_EVENT,
-                COLUMN_EVENT_ID + " = ? and " + COLUMN_EVENT_CATEGORY_ID + " = ?"
+                COLUMN_ID + " = ? and " + COLUMN_EVENT_CATEGORY_NAME + " = ?"
                 , new String[]{String.valueOf(eventModel.getId()),
-                        String.valueOf(eventModel.getCategoryId())});
+                        eventModel.getCategoryName()});
     }
 
     public void update(CategoryModel categoryModel) {
@@ -96,14 +94,14 @@ public class EventDataHelper {
 
     public void updateEvent(EventModel eventModel) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_EVENT_ID, eventModel.getId());
+//        contentValues.put(COLUMN_EVENT_ID, eventModel.getId());
         contentValues.put(COLUMN_EVENT_NAME, eventModel.getEventContent());
         contentValues.put(COLUMN_STATUS, eventModel.getStatus());
 
         database.update(TodoDatabaseHelper.TABLE_EVENT, contentValues,
-                COLUMN_EVENT_ID + " = ? and " + COLUMN_EVENT_CATEGORY_ID + " = ?"
+                COLUMN_ID + " = ? and " + COLUMN_EVENT_CATEGORY_NAME + " = ?"
                 , new String[]{String.valueOf(eventModel.getId()),
-                        String.valueOf(eventModel.getCategoryId())});
+                        eventModel.getCategoryName()});
     }
 
     public ArrayList<CategoryModel> queryAll() {
@@ -112,7 +110,7 @@ public class EventDataHelper {
                 null, null);
 
         while (cursor.moveToNext()) {
-            String categoryId = cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY_ID));
+            String categoryId = cursor.getString(cursor.getColumnIndex(COLUMN_ID));
             String categoryName = cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY));
 
             CategoryModel categoryModel = new CategoryModel();
@@ -127,22 +125,24 @@ public class EventDataHelper {
         return list;
     }
 
-    public ArrayList<EventModel> queryEvent(String event) {
+    public ArrayList<EventModel> queryEvent(String categoryName, String event) {
         ArrayList<EventModel> list = new ArrayList<>();
-        String querySql = "SELECT * FROM " + TABLE_EVENT + " WHERE " + COLUMN_EVENT_NAME + " like " +
+        String querySql = "SELECT * FROM " + TABLE_EVENT + " WHERE " + COLUMN_EVENT_CATEGORY_NAME + " = '" + categoryName + "' AND "
+                 + COLUMN_EVENT_NAME + " like " +
                 "'%" + event + "%'";
-
         Cursor cursor = database.rawQuery(querySql, null);
 
         while (cursor.moveToNext()) {
-            String eventId = cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_ID));
+            String eventId = cursor.getString(cursor.getColumnIndex(COLUMN_ID));
             String eventName = cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_NAME));
             String status = cursor.getString(cursor.getColumnIndex(COLUMN_STATUS));
+            String eventCategory = cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_CATEGORY_NAME));
 
             EventModel eventModel = new EventModel();
             eventModel.setId(Integer.valueOf(eventId));
             eventModel.setStatus(status);
             eventModel.setEventContent(eventName);
+            eventModel.setCategoryName(eventCategory);
 
             list.add(eventModel);
         }
@@ -152,20 +152,22 @@ public class EventDataHelper {
         return list;
     }
 
-    public ArrayList<EventModel> queryAllEvents(int categoryId) {
+    public ArrayList<EventModel> queryAllEvents(String categoryName) {
         ArrayList<EventModel> list = new ArrayList<>();
         Cursor cursor = database.query(TABLE_EVENT, null,
-                COLUMN_EVENT_CATEGORY_ID + " = " + categoryId, null, null, null, COLUMN_EVENT_NAME);
+                COLUMN_EVENT_CATEGORY_NAME + " = ?", new String[] {categoryName}, null, null, COLUMN_EVENT_NAME);
 
         while (cursor.moveToNext()) {
-            String eventId = cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_ID));
+            String eventId = cursor.getString(cursor.getColumnIndex(COLUMN_ID));
             String eventName = cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_NAME));
             String status = cursor.getString(cursor.getColumnIndex(COLUMN_STATUS));
+            String eventCategory = cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_CATEGORY_NAME));
 
             EventModel eventModel = new EventModel();
             eventModel.setId(Integer.valueOf(eventId));
             eventModel.setStatus(status);
             eventModel.setEventContent(eventName);
+            eventModel.setCategoryName(eventCategory);
 
             list.add(eventModel);
         }

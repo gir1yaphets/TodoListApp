@@ -1,62 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/rlTitleLayout"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rlTitleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textStyle="bold|italic"
+                android:textColor="@color/Teal"
+                android:gravity="center"
+                android:minHeight="50dp"
+                android:text="Input your Category"/>
+
+            <ImageView
+                android:id="@+id/ivAdd"
+                android:src="@drawable/add"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/etSummary"
+            android:minHeight="60dp"
+            android:hint="Input your summary of event"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvTodoList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30sp"
-            android:textStyle="bold|italic"
             android:textColor="@color/Teal"
+            android:textStyle="bold|italic"
             android:gravity="center"
             android:minHeight="50dp"
-            android:text="Input your Category"/>
+            android:text="My Category"/>
 
-        <ImageView
-            android:id="@+id/ivAdd"
-            android:src="@drawable/add"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:layout_width="32dp"
-            android:layout_height="32dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSummary"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/etSummary"
-        android:minHeight="60dp"
-        android:hint="Input your summary of event"
-        android:layout_margin="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/tvTodoList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textColor="@color/Teal"
-        android:textStyle="bold|italic"
-        android:gravity="center"
-        android:minHeight="50dp"
-        android:text="My Category"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSummary"
-        android:layout_marginTop="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </androidx.recyclerview.widget.RecyclerView>
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

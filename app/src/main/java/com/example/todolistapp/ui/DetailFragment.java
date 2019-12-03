@@ -99,7 +99,7 @@ public class DetailFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     String searchContent = etSearchContent.getText().toString();
-                    categoryModel.setEventList(EventDataHelper.getInstance().queryEvent(searchContent));
+                    categoryModel.setEventList(EventDataHelper.getInstance().queryEvent(categoryModel.getCategory(), searchContent));
                     adapter.setData(categoryModel.getEventList());
                     adapter.notifyDataSetChanged();
                 }
@@ -115,12 +115,12 @@ public class DetailFragment extends Fragment {
 
                     if (!detail.isEmpty() && categoryModel != null) {
                         EventModel eventModel = new EventModel();
-                        eventModel.setId(eventId++);
                         eventModel.setEventContent(detail);
-                        eventModel.setCategoryId(categoryModel.getId());
+                        eventModel.setCategoryName(categoryModel.getCategory());
                         categoryModel.getEventList().add(eventModel);
 
-                        EventDataHelper.getInstance().insertEvent(eventModel);
+                        int eventId = EventDataHelper.getInstance().insertEvent(eventModel);
+                        eventModel.setId(eventId);
 
                         adapter.notifyDataSetChanged();
                     }
