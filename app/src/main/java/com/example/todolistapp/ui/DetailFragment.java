@@ -46,8 +46,6 @@ public class DetailFragment extends Fragment {
 
     private TextView tvSearch;
 
-    private int eventId = 0;
-
     public static final String CATEGORY_MODEL = "CATEGORY_MODEL";
 
     public static DetailFragment newInstance(Bundle args) {

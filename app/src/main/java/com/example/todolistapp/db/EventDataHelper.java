@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_CATEGORY;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_CATEGORY_ID;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_EVENT_CATEGORY_NAME;
-import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_EVENT_ID;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_EVENT_NAME;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_ID;
 import static com.example.todolistapp.db.TodoDatabaseHelper.COLUMN_STATUS;
@@ -44,22 +43,9 @@ public class EventDataHelper {
 
     public int insert(CategoryModel categoryModel) {
         ContentValues contentValues = new ContentValues();
-//        contentValues.put(COLUMN_CATEGORY_ID, categoryModel.getId());
         contentValues.put(COLUMN_CATEGORY, categoryModel.getCategory());
 
         return (int) database.insert(TodoDatabaseHelper.TABLE_CATEGORY, null, contentValues);
-    }
-
-    public void insertEvents(CategoryModel categoryModel) {
-        for (EventModel eventModel : categoryModel.getEventList()) {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(COLUMN_EVENT_ID, eventModel.getId());
-            contentValues.put(COLUMN_EVENT_NAME, eventModel.getEventContent());
-            contentValues.put(COLUMN_EVENT_CATEGORY_NAME, categoryModel.getCategory());
-            contentValues.put(COLUMN_STATUS, eventModel.getStatus());
-
-            database.insert(TABLE_EVENT, null, contentValues);
-        }
     }
 
     public int insertEvent(EventModel eventModel) {
